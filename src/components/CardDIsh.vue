@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <div class="card-header-title">
-        <h1 class="is-uppercase">Завтрак</h1>
+        <h1 class="is-uppercase">Завтра</h1>
       </div>
     </div>
     <div class="card-image">

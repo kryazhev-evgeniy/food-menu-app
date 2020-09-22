@@ -1,5 +1,6 @@
 "use strict";
-
+import fs from "fs";
+import path from "path";
 import { app, protocol, BrowserWindow } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
@@ -13,7 +14,6 @@ let win;
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
 ]);
-
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({

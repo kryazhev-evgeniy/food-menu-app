@@ -1,3 +1,12 @@
-.text-center {
-  text-align: center;
+html {
+  overflow-y: auto;
+}
+* {
+  -webkit-user-select: none;
+}
+.columns {
+  flex-wrap: wrap;
+}
+.lime {
+  background-color: lime;
 }

@@ -17,10 +17,8 @@ import {
   faKey
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
 library.add(
   faChevronLeft,
@@ -35,12 +33,10 @@ library.add(
   faKey
 );
 
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("fa-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
-
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
+Vue.use(Buefy);
 
 new Vue({
   router,

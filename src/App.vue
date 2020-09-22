@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <NavBar />
     <router-view />
   </div>
 </template>
@@ -9,27 +10,16 @@ export default {
   data: () => ({
     isLoginModalActive: false,
     isRegisterModalActive: false,
-    SelectedDayDish: 0,
     loginFormProps: {
       login: "admin",
       pasword: "admin"
     }
   }),
-  methods: {
-    LeftDayDish() {
-      if (this.SelectedDayDish > 0) {
-        this.SelectedDayDish--;
-      }
-    },
-    RightDayDish() {
-      if (this.SelectedDayDish < 10) {
-        this.SelectedDayDish++;
-      }
-    }
-  },
+  methods: {},
   components: {
     //LoginForm: () => import("./components/ModalForms/LoginForm.vue"),
     //RegisterForm: () => import("./components/ModalForms/RegisterForm.vue")
+    NavBar: () => import("./components/NavBar.vue")
   }
 };
 </script>

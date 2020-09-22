@@ -20,9 +20,21 @@ export default new Vuex.Store({
         name: "3",
         urlImage: "https://www.fotoprizer.ru/img/157765_orig.jpg"
       }
-    ]
+    ],
+    SelectedDayDish: 1
   },
-  mutations: {},
+  mutations: {
+    LeftDayDish(state) {
+      if (state.SelectedDayDish > 0) {
+        state.SelectedDayDish--;
+      }
+    },
+    RightDayDish(state) {
+      if (state.SelectedDayDish < 10) {
+        state.SelectedDayDish++;
+      }
+    }
+  },
   actions: {},
   modules: {}
 });

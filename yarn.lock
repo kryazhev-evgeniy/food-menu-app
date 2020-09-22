@@ -890,10 +890,20 @@
     global-agent "^2.0.2"
     global-tunnel-ng "^2.7.1"
 
+"@fortawesome/fontawesome-common-types@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.7.tgz#4336c4b06d0b5608ff1215464b66fcf9f4795284"
+  integrity sha512-ego8jRVSHfq/iq4KRZJKQeUAdi3ZjGNrqw4oPN3fNdvTBnLCSntwVCnc37bsAJP9UB8MhrTfPnZYxkv2vpS4pg==
+
 "@fortawesome/fontawesome-common-types@^0.2.30":
   version "0.2.30"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.30.tgz#2f1cc5b46bd76723be41d0013a8450c9ba92b777"
   integrity sha512-TsRwpTuKwFNiPhk1UfKgw7zNPeV5RhNp2Uw3pws+9gDAkPGKrtjR1y2lI3SYn7+YzyfuNknflpBA1LRKjt7hMg==
+
+"@fortawesome/fontawesome-free@^5.14.0":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
+  integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
 
 "@fortawesome/fontawesome-svg-core@^1.2.30":
   version "1.2.30"
@@ -901,6 +911,13 @@
   integrity sha512-E3sAXATKCSVnT17HYmZjjbcmwihrNOCkoU7dVMlasrcwiJAHxSKeZ+4WN5O+ElgO/FaYgJmASl8p9N7/B/RttA==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.30"
+
+"@fortawesome/fontawesome@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome/-/fontawesome-1.1.8.tgz#75fe66a60f95508160bb16bd781ad7d89b280f5b"
+  integrity sha512-c0/MtkPVT0fmiFcCyYoPjkG9PkMOvfrZw2+0BaJ+Rh6UEcK1AR/LaRgrHHjUkbAbs9LXxQJhFS8CJ4uSnK2+JA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.7"
 
 "@fortawesome/free-solid-svg-icons@^5.14.0":
   version "5.14.0"
@@ -2262,6 +2279,13 @@ browserslist@^4.0.0, browserslist@^4.12.0, browserslist@^4.8.5:
     escalade "^3.1.0"
     node-releases "^1.1.61"
 
+buefy@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.9.3.tgz#c33b3309e9458ca5fe3ef14955e4bc2df7a0e3e2"
+  integrity sha512-Xqfo3ppeBo8Fwhb2fLwWnpkIC/1thPErU7DX3HksxTHxrSMixJ2BYkf3f6aWv4Ffx/FWX5UHnUrgtT7o7slnDA==
+  dependencies:
+    bulma "0.9.0"
+
 buffer-crc32@~0.2.3:
   version "0.2.13"
   resolved "https://registry.npm.taobao.org/buffer-crc32/download/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
@@ -2328,6 +2352,11 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/builtin-status-codes/download/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
+
+bulma@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.9.0.tgz#948c5445a49e9d7546f0826cb3820d17178a814f"
+  integrity sha512-rV75CJkubNUroAt0qCRkjznZLoaXq/ctfMXsMvKSL84UetbSyx5REl96e8GoQ04G4Tkw0XF3STECffTOQrbzOQ==
 
 bytes@3.0.0:
   version "3.0.0"

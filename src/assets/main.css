@@ -1,12 +1,20 @@
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/Roboto-Regular.ttf"); /* {{embedded-opentype-gf-url}} */
+}
+
 * {
   outline: none;
   -webkit-user-select: none;
+  font-family: "Roboto", sans-serif;
 }
 html {
   overflow-y: auto;
 }
 main {
-  margin-top: 50px;
+  margin-top: 70px;
 }
 .card {
   margin: 1rem;

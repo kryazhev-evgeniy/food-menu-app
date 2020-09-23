@@ -5,7 +5,13 @@
       <vs-navbar-item @click="$store.commit('LeftDayDish')">
         <fa-icon icon="chevron-left"></fa-icon>
       </vs-navbar-item>
-      <p>{{ $store.state.SelectedDayDish }}</p>
+      <div class="my-3">
+        <p>
+          {{ getSelectedDayDate.year }} - {{ getSelectedDayDate.month }} -
+          {{ getSelectedDayDate.date }}
+        </p>
+        <p class="has-text-centered">{{ getSelectedDayDate.day }}</p>
+      </div>
       <vs-navbar-item @click="$store.commit('RightDayDish')">
         <fa-icon icon="chevron-right"></fa-icon>
       </vs-navbar-item>
@@ -19,20 +25,29 @@
       </template>
     </vs-navbar>
 
+    <!-- form login -->
     <vs-dialog blur v-model="isSingInModalActive">
       <template #header>
-        <h1>Sign In</h1>
+        <h1 class="title is-12 my-5">Sign In</h1>
       </template>
 
       <div>
-        <vs-input class="mb-1rem" primary block placeholder="Email"> </vs-input>
+        <vs-input class="mb-1rem" primary block placeholder="Email">
+          <template #icon>
+            <fa-icon icon="envelope" />
+          </template>
+        </vs-input>
         <vs-input
           class="mb-1rem"
           primary
           block
           type="password"
           placeholder="Password"
-        ></vs-input>
+        >
+          <template #icon>
+            <fa-icon icon="key" />
+          </template>
+        </vs-input>
       </div>
 
       <template #footer>
@@ -44,22 +59,34 @@
       </template>
     </vs-dialog>
 
+    <!-- form register -->
     <vs-dialog blur v-model="isRegisterModalActive">
       <template #header>
-        <h1>Sign Up</h1>
+        <h1 class="title is-12 my-5">Sign Up</h1>
       </template>
 
       <div>
         <vs-input class="mb-1rem" primary block placeholder="Username">
+          <template #icon>
+            <fa-icon icon="user" />
+          </template>
         </vs-input>
-        <vs-input class="mb-1rem" primary block placeholder="Email"> </vs-input>
+        <vs-input class="mb-1rem" primary block placeholder="Email">
+          <template #icon>
+            <fa-icon icon="envelope" />
+          </template>
+        </vs-input>
         <vs-input
           class="mb-1rem"
           primary
           block
           type="password"
           placeholder="Password"
-        ></vs-input>
+        >
+          <template #icon>
+            <fa-icon icon="key" />
+          </template>
+        </vs-input>
       </div>
 
       <template #footer>
@@ -82,7 +109,15 @@ export default {
       login: "admin",
       pasword: "admin"
     }
-  })
+  }),
+  computed: {
+    getSelected() {
+      return this.$store.state.SelectedDayDish;
+    },
+    getSelectedDayDate() {
+      return this.$store.getters.getSelectedDayDate;
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="mx-5 my-5">
     <vs-row>
       <h1 class="title">{{ meal.name }}</h1>
     </vs-row>

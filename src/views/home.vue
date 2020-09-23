@@ -1,9 +1,6 @@
 <template>
   <vs-row>
-    <vs-col
-      v-for="(mealTIme, index) in this.$store.state.DayDishes[0].MealTimes"
-      :key="index"
-    >
+    <vs-col v-for="(mealTIme, index) in GetMealtime.MealTimes" :key="index">
       <MealTime :meal="mealTIme" />
     </vs-col>
   </vs-row>
@@ -15,8 +12,8 @@ export default {
     MealTime: () => import("../components/MealTime.vue")
   },
   computed: {
-    GetMealtime(index) {
-      return this.$store.state.DayDishes[index];
+    GetMealtime() {
+      return this.$store.getters.getSelectedDayDiish;
     }
   }
 };

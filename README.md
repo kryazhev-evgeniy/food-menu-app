@@ -53,3 +53,9 @@ yarn electron:serve
 ```
 npm run electron:serve
 ```
+
+### Скриншоты
+
+![Alt text](/screnhots/1.png)
+![Alt text](/screnhots/2.png)
+![Alt text](/screnhots/3.png)

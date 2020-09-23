@@ -1,24 +1,55 @@
-# food-menu-app
+# Food-menu-app
 
-## Project setup
+## Сначала становите Nodejs если он не установлен
+
+Nodejs - https://nodejs.org/en/
+
+### Далее склонируйте репозиторий
+
 ```
-yarn install
+git clone https://github.com/kryazhev-evgeniy/food-menu-app.git
 ```
 
-### Compiles and hot-reloads for development
+### после перейдите в папку с проектом
+
+```
+cd food-menu-app
+```
+
+### И выполните команду
+
+```
+yarn
+```
+
+или
+
+```
+npm install
+```
+
+### Дальше запустите проект в выбранном режиме
+
+#### В виде сайта
+
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+или
+
 ```
-yarn build
+npm run serve
 ```
 
-### Lints and fixes files
+#### В виде программы
+
 ```
-yarn lint
+yarn electron:serve
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+или
+
+```
+npm run electron:serve
+```

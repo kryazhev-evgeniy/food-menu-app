@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vuesax from "vuesax";
 import "vuesax/dist/vuesax.css";
 
+import "./assets/bulma.css";
 import "./assets/main.css";
 
 library.add(

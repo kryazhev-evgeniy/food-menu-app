@@ -1,6 +1,6 @@
 <template>
-  <div class="center examplex">
-    <vs-navbar text-white square color="dark" center-collapsed>
+  <div>
+    <vs-navbar square color="dark" text-white>
       <template #left> </template>
       <vs-navbar-item @click="$store.commit('LeftDayDish')">
         <fa-icon icon="chevron-left"></fa-icon>

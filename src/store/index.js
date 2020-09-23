@@ -5,23 +5,44 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    Dishes: [
+    SelectedDayDish: 1,
+    DayDishes: [
       {
-        name: "1",
-        urlImage:
-          "https://s1.1zoom.me/big3/4/Meat_products_Vegetables_485899.jpg"
-      },
-      {
-        name: "2",
-        urlImage:
-          "https://avatars.mds.yandex.net/get-pdb/2407118/3d214a7e-1a1d-4443-9bef-7c0271acc3c9/s1200"
-      },
-      {
-        name: "3",
-        urlImage: "https://www.fotoprizer.ru/img/157765_orig.jpg"
+        date: new Date(),
+        MealTimes: [
+          {
+            name: "Завтрак",
+            dishes: [
+              {
+                name: "Пельмени",
+                urlImage:
+                  "https://avatars.mds.yandex.net/get-pdb/2979710/939656c9-f65b-4d51-b287-e6cc6bfd8df0/s1200"
+              },
+              {
+                name: "Капуста"
+              },
+              {
+                name: "Котлеты"
+              }
+            ]
+          },
+          {
+            name: "Обед",
+            dishes: [
+              {
+                name: "1"
+              },
+              {
+                name: "2"
+              },
+              {
+                name: "3"
+              }
+            ]
+          }
+        ]
       }
-    ],
-    SelectedDayDish: 1
+    ]
   },
   mutations: {
     LeftDayDish(state) {

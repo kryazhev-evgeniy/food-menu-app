@@ -2,32 +2,39 @@
   <div class="card">
     <div class="card-header">
       <div class="card-header-title">
-        <h1 class="is-uppercase">Завтра</h1>
+        {{ dish.name }}
       </div>
     </div>
     <div class="card-image">
-      <img
-        src="https://bulma.io/images/placeholders/1280x960.png"
-        alt="Placeholder image"
-      />
+      <figure class="image is-4by3">
+        <img
+          :src="
+            dish.urlImage || require(`../assets/images/image_not_found.png`)
+          "
+          alt="Placeholder image"
+        />
+      </figure>
     </div>
     <div class="card-content">
       <div class="content">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam qui
-        obcaecati voluptatem ipsum commodi exercitationem, aperiam deserunt odio
-        in illo officiis neque libero iste modi similique molestias corporis
-        nulla vitae?
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
+        iaculis mauris. <a>@bulmaio</a>. <a href="#">#css</a>
+        <a href="#">#responsive</a>
+        <br />
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "CardDish",
+  props: {
+    dish: Object
+  },
+  data: () => ({
+    image_not_found: "../assets/images/image_not_found.png"
+  })
+};
 </script>
-<style>
-.card-header-title {
-  justify-content: center;
-  text-align: center;
-}
-</style>

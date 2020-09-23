@@ -28,7 +28,7 @@ var routes = [{
   }
 }];
 var router = new _vueRouter["default"]({
-  mode: "history",
+  mode: process.env.IS_ELECTRON ? "hash" : "history",
   base: process.env.BASE_URL,
   routes: routes
 });

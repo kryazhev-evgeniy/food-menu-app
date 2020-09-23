@@ -22,41 +22,6 @@ export default new Vuex.Store({
             ]
           }
         ]
-      },
-      {
-        date: new Date(),
-        MealTimes: [
-          {
-            name: "Завтрак",
-            dishes: [
-              {
-                name: "Каша",
-                urlImage:
-                  "https://avatars.mds.yandex.net/get-zen_doc/40274/pub_5bbb1083ad289e00ac6c2194_5bbb1a69ded2be00aa54d47a/scale_1200"
-              },
-              {
-                name: "Капуста"
-              },
-              {
-                name: "Котлеты"
-              }
-            ]
-          },
-          {
-            name: "Обед",
-            dishes: [
-              {
-                name: "1"
-              },
-              {
-                name: "2"
-              },
-              {
-                name: "3"
-              }
-            ]
-          }
-        ]
       }
     ]
   },

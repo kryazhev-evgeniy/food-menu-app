@@ -16,6 +16,7 @@ _vue["default"].use(_vuex["default"]);
 var _default = new _vuex["default"].Store({
   state: {
     SelectedDayDish: 0,
+    ShowWiew: true,
     DayDishes: [{
       date: new Date(),
       MealTimes: [{
@@ -52,12 +53,20 @@ var _default = new _vuex["default"].Store({
   mutations: {
     LeftDayDish: function LeftDayDish(state) {
       if (state.SelectedDayDish > 0) {
+        state.ShowWiew = false;
         state.SelectedDayDish--;
+        setTimeout(function () {
+          state.ShowWiew = true;
+        }, 500);
       }
     },
     RightDayDish: function RightDayDish(state) {
       if (state.SelectedDayDish < state.DayDishes.length - 1) {
+        state.ShowWiew = false;
         state.SelectedDayDish++;
+        setTimeout(function () {
+          state.ShowWiew = true;
+        }, 500);
       }
     }
   },
@@ -80,6 +89,9 @@ var _default = new _vuex["default"].Store({
         date: date.getDate(),
         day: dayNames[date.getDay()]
       };
+    },
+    getShowView: function getShowView(state) {
+      return state.ShowWiew;
     }
   }
 });

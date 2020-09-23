@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     SelectedDayDish: 0,
+    ShowWiew: true,
     DayDishes: [
       {
         date: new Date(),
@@ -62,12 +63,20 @@ export default new Vuex.Store({
   mutations: {
     LeftDayDish(state) {
       if (state.SelectedDayDish > 0) {
+        state.ShowWiew = false;
         state.SelectedDayDish--;
+        setTimeout(() => {
+          state.ShowWiew = true;
+        }, 500);
       }
     },
     RightDayDish(state) {
       if (state.SelectedDayDish < state.DayDishes.length - 1) {
+        state.ShowWiew = false;
         state.SelectedDayDish++;
+        setTimeout(() => {
+          state.ShowWiew = true;
+        }, 500);
       }
     }
   },
@@ -98,6 +107,9 @@ export default new Vuex.Store({
         date: date.getDate(),
         day: dayNames[date.getDay()]
       };
+    },
+    getShowView: state => {
+      return state.ShowWiew;
     }
   }
 });

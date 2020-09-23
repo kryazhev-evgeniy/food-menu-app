@@ -9311,7 +9311,7 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-router@^3.2.0:
+vue-router@^3.2.0, vue-router@^3.3.4:
   version "3.4.3"
   resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.3.tgz?cache=0&sync_timestamp=1600589322661&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.4.3.tgz#fa93768616ee338aa174f160ac965167fa572ffa"
   integrity sha1-+pN2hhbuM4qhdPFgrJZRZ/pXL/o=
@@ -9341,6 +9341,13 @@ vue@^2.6.12:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
+
+vuesax@^4.0.1-alpha.24:
+  version "4.0.1-alpha.24"
+  resolved "https://registry.yarnpkg.com/vuesax/-/vuesax-4.0.1-alpha.24.tgz#1bcc92b27b6ceb7a1adcf7452ada77a51f4d6459"
+  integrity sha512-l4584znm9MISZkM5fM4cDWZOGDrtoYh9vLysQRZ0HQ4XU/xdw6+hXb2GmwLGu+twsBc8qZdJ/RzLQkx0LO4OJQ==
+  dependencies:
+    vue-router "^3.3.4"
 
 vuex@^3.4.0:
   version "3.5.1"

@@ -14,7 +14,8 @@ import {
   faUserPlus,
   faUser,
   faEnvelope,
-  faKey
+  faKey,
+  fas
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -34,7 +35,8 @@ library.add(
   faChevronRight,
   faUser,
   faEnvelope,
-  faKey
+  faKey,
+  fas
 );
 
 Vue.use(Vuesax);

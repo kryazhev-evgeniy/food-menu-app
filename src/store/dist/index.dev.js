@@ -26,7 +26,10 @@ var _default = new _vuex["default"].Store({
           urlImage: "https://avatars.mds.yandex.net/get-pdb/2979710/939656c9-f65b-4d51-b287-e6cc6bfd8df0/s1200"
         }]
       }]
-    }]
+    }],
+    user: {
+      token: ""
+    }
   },
   mutations: {
     LeftDayDish: function LeftDayDish(state) {

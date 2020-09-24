@@ -24,7 +24,7 @@ require("./assets/main.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-_fontawesome.library.add(_freeSolidSvgIcons.faChevronLeft, _freeSolidSvgIcons.faSignInAlt, _freeSolidSvgIcons.faUserPlus, _freeSolidSvgIcons.faUserSecret, _freeSolidSvgIcons.faAlignRight, _freeSolidSvgIcons.faHome, _freeSolidSvgIcons.faChevronRight, _freeSolidSvgIcons.faUser, _freeSolidSvgIcons.faEnvelope, _freeSolidSvgIcons.faKey);
+_fontawesome.library.add(_freeSolidSvgIcons.faChevronLeft, _freeSolidSvgIcons.faSignInAlt, _freeSolidSvgIcons.faUserPlus, _freeSolidSvgIcons.faUserSecret, _freeSolidSvgIcons.faAlignRight, _freeSolidSvgIcons.faHome, _freeSolidSvgIcons.faChevronRight, _freeSolidSvgIcons.faUser, _freeSolidSvgIcons.faEnvelope, _freeSolidSvgIcons.faKey, _freeSolidSvgIcons.fas);
 
 _vue["default"].use(_vuesax["default"]);
 

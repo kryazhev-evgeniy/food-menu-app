@@ -23,7 +23,10 @@ export default new Vuex.Store({
           }
         ]
       }
-    ]
+    ],
+    user: {
+      token: ""
+    }
   },
   mutations: {
     LeftDayDish(state) {

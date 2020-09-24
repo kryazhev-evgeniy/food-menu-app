@@ -26,6 +26,17 @@ var routes = [{
       return _interopRequireWildcard(require("../views/home.vue"));
     });
   }
+}, {
+  path: "/admin",
+  name: "admin",
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require("../views/admin.vue"));
+    });
+  },
+  meta: {
+    requiresAuth: true
+  }
 }];
 var router = new _vueRouter["default"]({
   mode: process.env.IS_ELECTRON ? "hash" : "history",

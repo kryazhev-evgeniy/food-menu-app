@@ -28,6 +28,7 @@ var _default = new _vuex["default"].Store({
       }]
     }],
     user: {
+      name: "kryazhev",
       token: ""
     }
   },
@@ -73,6 +74,9 @@ var _default = new _vuex["default"].Store({
     },
     getShowView: function getShowView(state) {
       return state.ShowWiew;
+    },
+    getUser: function getUser(state) {
+      return state.user;
     }
   }
 });

@@ -13,9 +13,6 @@
 html {
   overflow-y: auto;
 }
-main {
-  margin-top: 70px;
-}
 .card {
   margin: 1rem;
 }

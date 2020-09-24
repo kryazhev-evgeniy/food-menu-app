@@ -4,42 +4,21 @@ import router from "./router";
 import store from "./store";
 
 import { library } from "@fortawesome/fontawesome";
-import {
-  faUserSecret,
-  faAlignRight,
-  faHome,
-  faChevronLeft,
-  faChevronRight,
-  faSignInAlt,
-  faUserPlus,
-  faUser,
-  faEnvelope,
-  faKey,
-  fas
-} from "@fortawesome/free-solid-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import Vuesax from "vuesax";
 import "vuesax/dist/vuesax.css";
 
-import "./assets/bulma.css";
+import buefy from "buefy";
+import "buefy/dist/buefy.css";
+
 import "./assets/main.css";
 
-library.add(
-  faChevronLeft,
-  faSignInAlt,
-  faUserPlus,
-  faUserSecret,
-  faAlignRight,
-  faHome,
-  faChevronRight,
-  faUser,
-  faEnvelope,
-  faKey,
-  fas
-);
+library.add(fas);
 
 Vue.use(Vuesax);
+Vue.use(buefy);
 
 Vue.component("fa-icon", FontAwesomeIcon);
 

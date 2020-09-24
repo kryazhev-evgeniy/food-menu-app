@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <vs-row>
+    <vs-row class="mt-70px">
       <vs-col w="12"> </vs-col>
       <transition name="fade">
         <div v-if="$store.getters.getShowView">
@@ -35,5 +35,8 @@ export default {
 <style>
 .scroll-x {
   overflow-x: auto;
+}
+.mt-70px {
+  margin-top: 70px;
 }
 </style>

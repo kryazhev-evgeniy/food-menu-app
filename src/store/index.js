@@ -25,6 +25,7 @@ export default new Vuex.Store({
       }
     ],
     user: {
+      name: "kryazhev",
       token: ""
     }
   },
@@ -78,6 +79,9 @@ export default new Vuex.Store({
     },
     getShowView: state => {
       return state.ShowWiew;
+    },
+    getUser: state => {
+      return state.user;
     }
   }
 });

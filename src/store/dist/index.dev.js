@@ -32,7 +32,8 @@ var _default = new _vuex["default"].Store({
     token: localStorage.getItem("token") || "",
     user: {
       name: "kryazhev"
-    }
+    },
+    users: []
   },
   mutations: {
     LeftDayDish: function LeftDayDish(state) {
@@ -57,19 +58,17 @@ var _default = new _vuex["default"].Store({
     auth_success: function auth_success(state, token) {
       state.token = token;
     },
-    auth_error: function auth_error(state) {
-      state.status = "error";
-    },
     logout: function logout(state) {
       state.token = "";
+    },
+    //
+    setUsers: function setUsers(state, users) {
+      state.users = users;
     }
   },
   actions: {
-    // eslint-disable-next-line no-unused-vars
     SignIn: function SignIn(_ref, form) {
       var commit = _ref.commit;
-      //https://kryazhev-offical.ru/api/user/auth
-      // eslint-disable-next-line no-unused-vars
       return new Promise(function (resolve, reject) {
         (0, _axios["default"])({
           url: "https://kryazhev-offical.ru/api/user/auth",
@@ -91,8 +90,20 @@ var _default = new _vuex["default"].Store({
         });
       });
     },
-    LogOut: function LogOut(_ref2) {
-      var commit = _ref2.commit;
+    // eslint-disable-next-line no-unused-vars
+    SignUp: function SignUp(_ref2, form) {
+      var dispatch = _ref2.dispatch;
+
+      _axios["default"].post("https://kryazhev-offical.ru/api/user/", {
+        username: form.username,
+        login: form.login,
+        password: form.password
+      }).then(function () {
+        dispatch("loadUsers");
+      });
+    },
+    LogOut: function LogOut(_ref3) {
+      var commit = _ref3.commit;
       // eslint-disable-next-line no-unused-vars
       return new Promise(function (resolve, reject) {
         commit("logout");
@@ -100,9 +111,37 @@ var _default = new _vuex["default"].Store({
         delete _axios["default"].defaults.headers.common["Authorization"];
         resolve();
       });
+    },
+    DeleteUser: function DeleteUser(_ref4, id) {
+      var dispatch = _ref4.dispatch;
+      var data = {
+        id: id
+      };
+      (0, _axios["default"])({
+        method: "delete",
+        url: "https://kryazhev-offical.ru/api/user/",
+        data: data
+      }).then(function () {
+        dispatch("loadUsers");
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadUsers: function loadUsers(_ref5) {
+      var commit = _ref5.commit;
+      //commit("setUsers", [{ name: 1 }]);
+      (0, _axios["default"])({
+        url: "https://kryazhev-offical.ru/api/user/",
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      }).then(function (resp) {
+        commit("setUsers", resp.data);
+      })["catch"](function (err) {
+        alert(err);
+      });
     }
   },
-  modules: {},
   getters: {
     getSelectedDayDiish: function getSelectedDayDiish(state) {
       if (state.SelectedDayDish > state.DayDishes.length) {
@@ -129,8 +168,12 @@ var _default = new _vuex["default"].Store({
     },
     isLoggedIn: function isLoggedIn(state) {
       return !!state.token;
+    },
+    users: function users(state) {
+      return state.users;
     }
-  }
+  },
+  modules: {}
 });
 
 exports["default"] = _default;

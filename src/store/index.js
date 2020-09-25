@@ -27,7 +27,8 @@ export default new Vuex.Store({
     token: localStorage.getItem("token") || "",
     user: {
       name: "kryazhev"
-    }
+    },
+    users: []
   },
   mutations: {
     LeftDayDish(state) {
@@ -52,18 +53,16 @@ export default new Vuex.Store({
     auth_success(state, token) {
       state.token = token;
     },
-    auth_error(state) {
-      state.status = "error";
-    },
     logout(state) {
       state.token = "";
+    },
+    //
+    setUsers(state, users) {
+      state.users = users;
     }
   },
   actions: {
-    // eslint-disable-next-line no-unused-vars
     SignIn({ commit }, form) {
-      //https://kryazhev-offical.ru/api/user/auth
-      // eslint-disable-next-line no-unused-vars
       return new Promise((resolve, reject) => {
         axios({
           url: "https://kryazhev-offical.ru/api/user/auth",
@@ -87,6 +86,18 @@ export default new Vuex.Store({
           });
       });
     },
+    // eslint-disable-next-line no-unused-vars
+    SignUp({ dispatch }, form) {
+      axios
+        .post("https://kryazhev-offical.ru/api/user/", {
+          username: form.username,
+          login: form.login,
+          password: form.password
+        })
+        .then(() => {
+          dispatch("loadUsers");
+        });
+    },
     LogOut({ commit }) {
       // eslint-disable-next-line no-unused-vars
       return new Promise((resolve, reject) => {
@@ -95,9 +106,40 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common["Authorization"];
         resolve();
       });
+    },
+    DeleteUser({ dispatch }, id) {
+      var data = {
+        id: id
+      };
+
+      axios({
+        method: "delete",
+        url: "https://kryazhev-offical.ru/api/user/",
+        data: data
+      })
+        .then(() => {
+          dispatch("loadUsers");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    loadUsers({ commit }) {
+      //commit("setUsers", [{ name: 1 }]);
+      axios({
+        url: "https://kryazhev-offical.ru/api/user/",
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(resp => {
+          commit("setUsers", resp.data);
+        })
+        .catch(err => {
+          alert(err);
+        });
     }
   },
-  modules: {},
   getters: {
     getSelectedDayDiish: state => {
       if (state.SelectedDayDish > state.DayDishes.length) {
@@ -130,6 +172,8 @@ export default new Vuex.Store({
     getUser: state => {
       return state.user;
     },
-    isLoggedIn: state => !!state.token
-  }
+    isLoggedIn: state => !!state.token,
+    users: state => state.users
+  },
+  modules: {}
 });

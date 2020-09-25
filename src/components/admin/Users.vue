@@ -17,6 +17,9 @@
         >
           <fa-icon icon="user-minus" />
         </vs-button>
+        <vs-button flat size="xl" :disabled="!selecteduser">
+          <fa-icon icon="key" />
+        </vs-button>
       </vs-row>
     </div>
 
@@ -37,9 +40,10 @@
       <template #tbody>
         <vs-tr
           :key="i"
-          v-for="(tr, i) in users"
+          v-for="(tr, i) in getUsers"
           :data="tr"
           :is-selected="selecteduser == tr"
+          :primary="tr.login == 'admin'"
         >
           <vs-td>
             {{ tr.username || tr.login }}
@@ -108,7 +112,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -122,65 +125,25 @@ export default {
       }
     };
   },
-  mounted() {
-    axios({
-      url: "https://kryazhev-offical.ru/api/user/",
-      headers: {
-        Authorization: localStorage.getItem("token")
-      }
-    }).then(result => {
-      this.users = result.data;
-    });
-  },
   methods: {
     signUpUser() {
-      axios
-        .post("https://kryazhev-offical.ru/api/user/", {
-          username: this.siginUpFormProps.username,
-          login: this.siginUpFormProps.login,
-          password: this.siginUpFormProps.password
-        })
-        .then(() => {
-          //this.users.push(result.data);
-          this.isRegisterModalActive = false;
-        });
+      this.$store.dispatch("SignUp", this.siginUpFormProps).then(() => {
+        this.isRegisterModalActive = false;
+      });
     },
     deleteUser() {
       if (this.selecteduser != null) {
-        var data = { id: this.selecteduser._id };
-
-        var config = {
-          method: "delete",
-          url: "https://kryazhev-offical.ru/api/user/",
-          headers: {},
-          data: data
-        };
-
-        axios(config)
-          .then(() => {
-            this.$vs.notification({
-              title: "Error",
-              text: `Deleted - ${this.selecteduser.username}`
-            });
-            axios.get("https://kryazhev-offical.ru/api/user/").then(result => {
-              this.users = result.data;
-            });
-          })
-          .catch(error => {
-            this.$vs.notification({
-              title: "Error",
-              text: error
-            });
-          });
+        this.$store.dispatch("DeleteUser", this.selecteduser._id);
       }
     }
   },
-  computed: {},
-  components: {},
-  beforeUpdate() {
-    axios.get("https://kryazhev-offical.ru/api/user/").then(result => {
-      this.users = result.data;
-    });
+  computed: {
+    getUsers() {
+      return this.$store.getters.users;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("loadUsers");
   }
 };
 </script>

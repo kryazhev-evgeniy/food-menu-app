@@ -1,5 +1,6 @@
 <template>
   <vs-row>
+    <h1>{{ c }}</h1>
     <div class="my-4">
       <vs-row>
         <vs-button
@@ -12,7 +13,7 @@
         <vs-button
           flat
           size="xl"
-          :disabled="!selecteduser"
+          :disabled="!tableUsers.selected"
           @click="deleteUser()"
         >
           <fa-icon icon="user-minus" />
@@ -23,40 +24,41 @@
       </vs-row>
     </div>
 
-    <vs-table v-model="selecteduser">
-      <template #thead>
-        <vs-tr>
-          <vs-th>
-            Username
-          </vs-th>
-          <vs-th>
-            Login
-          </vs-th>
-          <vs-th>
-            Password
-          </vs-th>
-        </vs-tr>
-      </template>
-      <template #tbody>
-        <vs-tr
-          :key="i"
-          v-for="(tr, i) in getUsers"
-          :data="tr"
-          :is-selected="selecteduser == tr"
-          :primary="tr.login == 'admin'"
-        >
-          <vs-td>
-            {{ tr.username || tr.login }}
-          </vs-td>
-          <vs-td>
-            {{ tr.login }}
-          </vs-td>
-          <vs-td>
-            {{ tr.password }}
-          </vs-td>
-        </vs-tr>
-      </template>
-    </vs-table>
+    <!-- tables -->
+
+    <vs-row>
+      <vs-table style="margin-right:100px;" v-model="tableUsers.selected">
+        <template #header>
+          <vs-input v-model="tableUsers.search" border placeholder="Search" />
+        </template>
+        <template #thead>
+          <vs-tr>
+            <vs-th>
+              User Name
+            </vs-th>
+            <vs-th>
+              Login
+            </vs-th>
+          </vs-tr>
+        </template>
+        <template #tbody>
+          <vs-tr
+            v-for="user in $vs.getSearch(users, tableUsers.search)"
+            :key="user._id"
+            :data="user"
+            :is-selected="tableUsers.selected == user"
+            :primary="user.isAdmin"
+          >
+            <vs-td>
+              {{ user.username }}
+            </vs-td>
+            <vs-td>
+              {{ user.login }}
+            </vs-td>
+          </vs-tr>
+        </template>
+      </vs-table>
+    </vs-row>
 
     <vs-dialog blur v-model="isRegisterModalActive">
       <template #header>
@@ -70,6 +72,8 @@
           block
           placeholder="Username"
           v-model="siginUpFormProps.username"
+          readonly
+          onfocus="this.removeAttribute('readonly')"
         >
           <template #icon>
             <fa-icon icon="user" />
@@ -81,6 +85,8 @@
           block
           placeholder="Email"
           v-model="siginUpFormProps.login"
+          readonly
+          onfocus="this.removeAttribute('readonly')"
         >
           <template #icon>
             <fa-icon icon="envelope" />
@@ -93,16 +99,21 @@
           type="password"
           placeholder="Password"
           v-model="siginUpFormProps.password"
+          readonly
+          onfocus="this.removeAttribute('readonly')"
         >
           <template #icon>
             <fa-icon icon="key" />
           </template>
         </vs-input>
+        <vs-checkbox v-model="siginUpFormProps.isAdmin">
+          is admin
+        </vs-checkbox>
       </div>
 
       <template #footer>
         <div class="footer-dialog">
-          <vs-button block @click="signUpUser()">
+          <vs-button block @click="addUser()">
             Sign Up
           </vs-button>
         </div>
@@ -116,25 +127,43 @@ export default {
   data() {
     return {
       users: [],
-      selecteduser: null,
       isRegisterModalActive: false,
       siginUpFormProps: {
         username: "",
         login: "",
-        password: ""
+        password: "",
+        isAdmin: false
+      },
+      tableUsers: {
+        search: "",
+        selected: null
       }
     };
   },
   methods: {
-    signUpUser() {
-      this.$store.dispatch("SignUp", this.siginUpFormProps).then(() => {
+    addUser() {
+      this.$store.dispatch("SignUp", this.siginUpFormProps).then(user => {
+        this.$vs.notification({
+          position: "top-right",
+          title: "Добавлен пользователь",
+          text: `${user.username}`
+        });
+        this.users = this.$store.getters.users;
         this.isRegisterModalActive = false;
       });
     },
     deleteUser() {
-      if (this.selecteduser != null) {
-        this.$store.dispatch("DeleteUser", this.selecteduser._id);
-      }
+      this.$store
+        .dispatch("DeleteUser", this.tableUsers.selected._id)
+        .then(() => {
+          this.$vs.notification({
+            color: "danger",
+            position: "top-right",
+            title: "Удалён пользователь",
+            text: this.tableUsers.selected.username
+          });
+          this.users = this.$store.getters.users;
+        });
     }
   },
   computed: {
@@ -143,7 +172,11 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("loadUsers");
+    this.$store.dispatch("loadUsers").then(() => {
+      this.users = this.$store.getters.users;
+    });
   }
 };
 </script>
+
+<style scoped></style>

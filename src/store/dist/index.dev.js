@@ -93,13 +93,19 @@ var _default = new _vuex["default"].Store({
     // eslint-disable-next-line no-unused-vars
     SignUp: function SignUp(_ref2, form) {
       var dispatch = _ref2.dispatch;
-
-      _axios["default"].post("https://kryazhev-offical.ru/api/user/", {
-        username: form.username,
-        login: form.login,
-        password: form.password
-      }).then(function () {
-        dispatch("loadUsers");
+      return new Promise(function (resolve, reject) {
+        _axios["default"].post("https://kryazhev-offical.ru/api/user/", {
+          username: form.username,
+          login: form.login,
+          password: form.password,
+          isAdmin: form.isAdmin
+        }).then(function (resp) {
+          dispatch("loadUsers").then(function () {
+            resolve(resp.data);
+          });
+        })["catch"](function (err) {
+          reject(err);
+        });
       });
     },
     LogOut: function LogOut(_ref3) {
@@ -117,28 +123,35 @@ var _default = new _vuex["default"].Store({
       var data = {
         id: id
       };
-      (0, _axios["default"])({
-        method: "delete",
-        url: "https://kryazhev-offical.ru/api/user/",
-        data: data
-      }).then(function () {
-        dispatch("loadUsers");
-      })["catch"](function (error) {
-        console.log(error);
+      return new Promise(function (resolve, reject) {
+        (0, _axios["default"])({
+          method: "delete",
+          url: "https://kryazhev-offical.ru/api/user/",
+          data: data
+        }).then(function () {
+          dispatch("loadUsers").then(function () {
+            resolve();
+          });
+        })["catch"](function () {
+          reject();
+        });
       });
     },
     loadUsers: function loadUsers(_ref5) {
       var commit = _ref5.commit;
       //commit("setUsers", [{ name: 1 }]);
-      (0, _axios["default"])({
-        url: "https://kryazhev-offical.ru/api/user/",
-        headers: {
-          Authorization: localStorage.getItem("token")
-        }
-      }).then(function (resp) {
-        commit("setUsers", resp.data);
-      })["catch"](function (err) {
-        alert(err);
+      return new Promise(function (resolve, reject) {
+        (0, _axios["default"])({
+          url: "https://kryazhev-offical.ru/api/user/",
+          headers: {
+            Authorization: localStorage.getItem("token")
+          }
+        }).then(function (resp) {
+          commit("setUsers", resp.data);
+          resolve(resp.data);
+        })["catch"](function (err) {
+          reject(err);
+        });
       });
     }
   },

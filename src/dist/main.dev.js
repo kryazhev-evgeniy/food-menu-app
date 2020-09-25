@@ -8,8 +8,6 @@ var _router = _interopRequireDefault(require("./router"));
 
 var _store = _interopRequireDefault(require("./store"));
 
-var _axios = _interopRequireDefault(require("axios"));
-
 var _fontawesome = require("@fortawesome/fontawesome");
 
 var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
@@ -37,13 +35,6 @@ _vue["default"].use(_buefy["default"]);
 _vue["default"].component("fa-icon", _vueFontawesome.FontAwesomeIcon);
 
 _vue["default"].config.productionTip = false;
-_vue["default"].prototype.$http = _axios["default"];
-var token = localStorage.getItem("token");
-
-if (token) {
-  _vue["default"].prototype.$http.defaults.headers.common["Authorization"] = "Bearer ".concat(token);
-}
-
 new _vue["default"]({
   router: _router["default"],
   store: _store["default"],

@@ -88,15 +88,23 @@ export default new Vuex.Store({
     },
     // eslint-disable-next-line no-unused-vars
     SignUp({ dispatch }, form) {
-      axios
-        .post("https://kryazhev-offical.ru/api/user/", {
-          username: form.username,
-          login: form.login,
-          password: form.password
-        })
-        .then(() => {
-          dispatch("loadUsers");
-        });
+      return new Promise((resolve, reject) => {
+        axios
+          .post("https://kryazhev-offical.ru/api/user/", {
+            username: form.username,
+            login: form.login,
+            password: form.password,
+            isAdmin: form.isAdmin
+          })
+          .then(resp => {
+            dispatch("loadUsers").then(() => {
+              resolve(resp.data);
+            });
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     },
     LogOut({ commit }) {
       // eslint-disable-next-line no-unused-vars
@@ -112,32 +120,39 @@ export default new Vuex.Store({
         id: id
       };
 
-      axios({
-        method: "delete",
-        url: "https://kryazhev-offical.ru/api/user/",
-        data: data
-      })
-        .then(() => {
-          dispatch("loadUsers");
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "delete",
+          url: "https://kryazhev-offical.ru/api/user/",
+          data: data
         })
-        .catch(error => {
-          console.log(error);
-        });
+          .then(() => {
+            dispatch("loadUsers").then(() => {
+              resolve();
+            });
+          })
+          .catch(() => {
+            reject();
+          });
+      });
     },
     loadUsers({ commit }) {
       //commit("setUsers", [{ name: 1 }]);
-      axios({
-        url: "https://kryazhev-offical.ru/api/user/",
-        headers: {
-          Authorization: localStorage.getItem("token")
-        }
-      })
-        .then(resp => {
-          commit("setUsers", resp.data);
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "https://kryazhev-offical.ru/api/user/",
+          headers: {
+            Authorization: localStorage.getItem("token")
+          }
         })
-        .catch(err => {
-          alert(err);
-        });
+          .then(resp => {
+            commit("setUsers", resp.data);
+            resolve(resp.data);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     }
   },
   getters: {

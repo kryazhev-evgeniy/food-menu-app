@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -24,9 +24,9 @@ export default new Vuex.Store({
         ]
       }
     ],
+    token: localStorage.getItem("token") || "",
     user: {
-      name: "kryazhev",
-      token: ""
+      name: "kryazhev"
     }
   },
   mutations: {
@@ -47,9 +47,56 @@ export default new Vuex.Store({
           state.ShowWiew = true;
         }, 500);
       }
+    },
+    //suer mutations
+    auth_success(state, token) {
+      state.token = token;
+    },
+    auth_error(state) {
+      state.status = "error";
+    },
+    logout(state) {
+      state.token = "";
     }
   },
-  actions: {},
+  actions: {
+    // eslint-disable-next-line no-unused-vars
+    SignIn({ commit }, form) {
+      //https://kryazhev-offical.ru/api/user/auth
+      // eslint-disable-next-line no-unused-vars
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "https://kryazhev-offical.ru/api/user/auth",
+          method: "POST",
+          data: {
+            login: form.login,
+            password: form.password
+          }
+        })
+          .then(resp => {
+            const token = resp.data.token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            localStorage.setItem("token", `Bearer ${token}`);
+            commit("auth_success", token);
+            resolve(resp);
+          })
+          .catch(err => {
+            commit("auth_error");
+            localStorage.removeItem("token");
+            reject(err);
+          });
+      });
+    },
+    LogOut({ commit }) {
+      // eslint-disable-next-line no-unused-vars
+      return new Promise((resolve, reject) => {
+        commit("logout");
+        localStorage.removeItem("token");
+        delete axios.defaults.headers.common["Authorization"];
+        resolve();
+      });
+    }
+  },
   modules: {},
   getters: {
     getSelectedDayDiish: state => {
@@ -82,6 +129,7 @@ export default new Vuex.Store({
     },
     getUser: state => {
       return state.user;
-    }
+    },
+    isLoggedIn: state => !!state.token
   }
 });

@@ -51,6 +51,8 @@ function createWindow() {
   }
 
   win.on("closed", function () {
+    _electron.session.defaultSession.clearStorageData();
+
     win = null;
   });
 } // Quit when all windows are closed.

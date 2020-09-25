@@ -1,7 +1,18 @@
 <template>
   <div>
     <vs-navbar square color="dark" text-white>
-      <template #left> </template>
+      <template #left>
+        <vs-navbar-group v-if="$store.getters.isLoggedIn">
+          USER
+          <template #items>
+            <vs-navbar-item>
+              <router-link to="/admin">
+                Admin panel
+              </router-link>
+            </vs-navbar-item>
+          </template>
+        </vs-navbar-group>
+      </template>
       <vs-navbar-item @click="$store.commit('LeftDayDish')">
         <fa-icon icon="chevron-left"></fa-icon>
       </vs-navbar-item>
@@ -16,11 +27,19 @@
         <fa-icon icon="chevron-right"></fa-icon>
       </vs-navbar-item>
       <template #right>
-        <vs-button flat @click="isSingInModalActive = !isSingInModalActive"
+        <vs-button
+          v-if="!$store.getters.isLoggedIn"
+          flat
+          @click="isSingInModalActive = !isSingInModalActive"
           >Sign In</vs-button
         >
-        <vs-button @click="isRegisterModalActive = !isRegisterModalActive"
+        <vs-button
+          v-if="!$store.getters.isLoggedIn"
+          @click="isRegisterModalActive = !isRegisterModalActive"
           >Sing Up</vs-button
+        >
+        <vs-button v-if="$store.getters.isLoggedIn" @click="logout"
+          >Logout</vs-button
         >
       </template>
     </vs-navbar>
@@ -32,7 +51,13 @@
       </template>
 
       <div>
-        <vs-input class="mb-1rem" primary block placeholder="Email">
+        <vs-input
+          class="mb-1rem"
+          primary
+          block
+          placeholder="Email"
+          v-model="loginFormProps.login"
+        >
           <template #icon>
             <fa-icon icon="envelope" />
           </template>
@@ -43,6 +68,7 @@
           block
           type="password"
           placeholder="Password"
+          v-model="loginFormProps.password"
         >
           <template #icon>
             <fa-icon icon="key" />
@@ -52,7 +78,7 @@
 
       <template #footer>
         <div class="footer-dialog">
-          <vs-button block>
+          <vs-button block @click="signin()">
             Sign In
           </vs-button>
         </div>
@@ -106,8 +132,8 @@ export default {
     isSingInModalActive: false,
     isRegisterModalActive: false,
     loginFormProps: {
-      login: "admin",
-      pasword: "admin"
+      login: "",
+      pasword: ""
     }
   }),
   computed: {
@@ -116,6 +142,25 @@ export default {
     },
     getSelectedDayDate() {
       return this.$store.getters.getSelectedDayDate;
+    }
+  },
+  methods: {
+    signin() {
+      this.$store
+        .dispatch("SignIn", this.loginFormProps)
+        .then(() => {
+          this.isSingInModalActive = false;
+        })
+        .cath(err => {
+          this.$vs.notification({
+            position: "top-center",
+            title: "Documentation Vuesax 4.0+",
+            text: err
+          });
+        });
+    },
+    logout() {
+      this.$store.dispatch("LogOut");
     }
   }
 };

@@ -123,14 +123,19 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://localhost:3000/api/user/").then(result => {
+    axios({
+      url: "https://kryazhev-offical.ru/api/user/",
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(result => {
       this.users = result.data;
     });
   },
   methods: {
     signUpUser() {
       axios
-        .post("http://localhost:3000/api/user/", {
+        .post("https://kryazhev-offical.ru/api/user/", {
           username: this.siginUpFormProps.username,
           login: this.siginUpFormProps.login,
           password: this.siginUpFormProps.password
@@ -146,7 +151,7 @@ export default {
 
         var config = {
           method: "delete",
-          url: "http://localhost:3000/api/user/",
+          url: "https://kryazhev-offical.ru/api/user/",
           headers: {},
           data: data
         };
@@ -157,7 +162,7 @@ export default {
               title: "Error",
               text: `Deleted - ${this.selecteduser.username}`
             });
-            axios.get("http://localhost:3000/api/user/").then(result => {
+            axios.get("https://kryazhev-offical.ru/api/user/").then(result => {
               this.users = result.data;
             });
           })
@@ -173,7 +178,7 @@ export default {
   computed: {},
   components: {},
   beforeUpdate() {
-    axios.get("http://localhost:3000/api/user/").then(result => {
+    axios.get("https://kryazhev-offical.ru/api/user/").then(result => {
       this.users = result.data;
     });
   }

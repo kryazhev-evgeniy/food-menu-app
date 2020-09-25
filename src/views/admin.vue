@@ -45,6 +45,14 @@
           Users
         </vs-sidebar-item>
       </vs-sidebar-group>
+      <vs-sidebar-item id="back">
+        <template #icon>
+          <fa-icon icon="chevron-left" />
+        </template>
+        <router-link to="/">
+          Admin panel
+        </router-link>
+      </vs-sidebar-item>
     </vs-sidebar>
     <vs-row style="margin-left: 4rem; margin-top: 1rem;">
       <DashBoard v-if="active == 'home'" />

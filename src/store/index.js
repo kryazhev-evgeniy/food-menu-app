@@ -3,6 +3,10 @@ import Vuex from "vuex";
 import axios from "axios";
 Vue.use(Vuex);
 
+function getApi(path) {
+  return `http://localhost:3000/${path}`;
+}
+
 export default new Vuex.Store({
   state: {
     SelectedDayDish: 0,
@@ -59,13 +63,16 @@ export default new Vuex.Store({
     //
     setUsers(state, users) {
       state.users = users;
+    },
+    setUser(state, newuser) {
+      state.user = newuser;
     }
   },
   actions: {
     SignIn({ commit }, form) {
       return new Promise((resolve, reject) => {
         axios({
-          url: "https://kryazhev-offical.ru/api/user/auth",
+          url: getApi("api/user/auth"),
           method: "POST",
           data: {
             login: form.login,
@@ -77,7 +84,8 @@ export default new Vuex.Store({
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             localStorage.setItem("token", `Bearer ${token}`);
             commit("auth_success", token);
-            resolve(resp);
+            commit("setUser", resp.data.user);
+            resolve();
           })
           .catch(err => {
             commit("auth_error");
@@ -90,7 +98,7 @@ export default new Vuex.Store({
     SignUp({ dispatch }, form) {
       return new Promise((resolve, reject) => {
         axios
-          .post("https://kryazhev-offical.ru/api/user/", {
+          .post(getApi("api/user/"), {
             username: form.username,
             login: form.login,
             password: form.password,
@@ -123,7 +131,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: "delete",
-          url: "https://kryazhev-offical.ru/api/user/",
+          url: getApi("api/user/"),
           data: data
         })
           .then(() => {
@@ -140,7 +148,7 @@ export default new Vuex.Store({
       //commit("setUsers", [{ name: 1 }]);
       return new Promise((resolve, reject) => {
         axios({
-          url: "https://kryazhev-offical.ru/api/user/",
+          url: getApi("api/user/"),
           headers: {
             Authorization: localStorage.getItem("token")
           }

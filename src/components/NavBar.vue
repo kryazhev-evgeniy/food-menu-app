@@ -3,9 +3,9 @@
     <vs-navbar square color="dark" text-white>
       <template #left>
         <vs-navbar-group v-if="$store.getters.isLoggedIn">
-          USER
+          {{ $store.getters.getUser.name }}
           <template #items>
-            <vs-navbar-item>
+            <vs-navbar-item v-if="$store.getters.getUser.isAdmin">
               <router-link to="/admin">
                 Admin panel
               </router-link>
@@ -92,22 +92,37 @@
       </template>
 
       <div>
-        <vs-input class="mb-1rem" primary block placeholder="Username">
+        <vs-input
+          class="mb-1rem"
+          primary
+          block
+          placeholder="Username"
+          v-model="registerFormProps.username"
+        >
           <template #icon>
             <fa-icon icon="user" />
           </template>
         </vs-input>
-        <vs-input class="mb-1rem" primary block placeholder="Email">
+
+        <vs-input
+          class="mb-1rem"
+          primary
+          block
+          placeholder="login"
+          v-model="registerFormProps.login"
+        >
           <template #icon>
             <fa-icon icon="envelope" />
           </template>
         </vs-input>
+
         <vs-input
           class="mb-1rem"
           primary
           block
           type="password"
           placeholder="Password"
+          v-model="registerFormProps.password"
         >
           <template #icon>
             <fa-icon icon="key" />
@@ -117,7 +132,7 @@
 
       <template #footer>
         <div class="footer-dialog">
-          <vs-button block>
+          <vs-button block @click="singup()">
             Sign In
           </vs-button>
         </div>
@@ -134,6 +149,12 @@ export default {
     loginFormProps: {
       login: "",
       pasword: ""
+    },
+    registerFormProps: {
+      username: "",
+      login: "",
+      password: "",
+      isAdmin: false
     }
   }),
   computed: {
@@ -151,7 +172,7 @@ export default {
         .then(() => {
           this.isSingInModalActive = false;
         })
-        .cath(err => {
+        .catch(err => {
           this.$vs.notification({
             position: "top-center",
             title: "Documentation Vuesax 4.0+",
@@ -161,6 +182,32 @@ export default {
     },
     logout() {
       this.$store.dispatch("LogOut");
+    },
+    singup() {
+      this.$store.dispatch("SignUp", this.registerFormProps).then(user => {
+        this.$vs.notification({
+          position: "top-center",
+          title: "Добавлен пользователь",
+          text: `${user.username}`
+        });
+        this.isRegisterModalActive = false;
+        //login
+        this.$store
+          .dispatch("SignIn", {
+            login: this.registerFormProps.username,
+            password: this.registerFormProps.password
+          })
+          .then(() => {
+            this.isSingInModalActive = false;
+          })
+          .catch(err => {
+            this.$vs.notification({
+              position: "top-center",
+              title: "Documentation Vuesax 4.0+",
+              text: err
+            });
+          });
+      });
     }
   }
 };

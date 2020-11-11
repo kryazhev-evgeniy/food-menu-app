@@ -15,7 +15,7 @@ export default {
   name: "MealTime",
   props: ["meal"],
   components: {
-    CardDish: () => import("./CardDish.vue")
+    CardDish: () => import("../components/CardDish")
   }
 };
 </script>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
@@ -29,9 +30,7 @@ export default new Vuex.Store({
       }
     ],
     token: localStorage.getItem("token") || "",
-    user: {
-      name: "kryazhev"
-    },
+    user: {},
     users: []
   },
   mutations: {
@@ -116,7 +115,7 @@ export default new Vuex.Store({
     },
     LogOut({ commit }) {
       // eslint-disable-next-line no-unused-vars
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         commit("logout");
         localStorage.removeItem("token");
         delete axios.defaults.headers.common["Authorization"];
@@ -159,6 +158,25 @@ export default new Vuex.Store({
           })
           .catch(err => {
             reject(err);
+          });
+      });
+    },
+    SetPassword({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "PUT",
+          url: getApi("api/user/setpass"),
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`
+          },
+          data: data
+        })
+          .then(resp => {
+            resolve(resp);
+          })
+          .catch(err => {
+            reject(err);
+            console.log(err);
           });
       });
     }

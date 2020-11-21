@@ -1,6 +1,5 @@
 <template>
   <vs-row>
-    <h1>{{ c }}</h1>
     <div class="my-4">
       <vs-row>
         <vs-button
@@ -18,7 +17,7 @@
         >
           <fa-icon icon="user-minus" />
         </vs-button>
-        <vs-button flat size="xl" :disabled="!selecteduser">
+        <vs-button flat size="xl" :disabled="!tableUsers.selected" @click="isSetPasswordModalActive = true">
           <fa-icon icon="key" />
         </vs-button>
       </vs-row>
@@ -119,6 +118,34 @@
         </div>
       </template>
     </vs-dialog>
+
+    <vs-dialog blur v-model="isSetPasswordModalActive">
+      <template #header>
+        <h1 class="title is-12 my-5">Изминение пароля</h1>
+      </template>
+
+      <div>
+        <vs-input
+          class="mb-1rem"
+          primary
+          block
+          placeholder="Пароль"
+          v-model="passwordUser"
+        >
+          <template #icon>
+            <fa-icon icon="key" />
+          </template>
+        </vs-input>
+      </div>
+
+      <template #footer>
+        <div class="footer-dialog">
+          <vs-button block @click="setPassword()">
+            Изменить
+          </vs-button>
+        </div>
+      </template>
+    </vs-dialog>
   </vs-row>
 </template>
 
@@ -128,6 +155,7 @@ export default {
     return {
       users: [],
       isRegisterModalActive: false,
+      isSetPasswordModalActive: false,
       siginUpFormProps: {
         username: "",
         login: "",
@@ -137,7 +165,8 @@ export default {
       tableUsers: {
         search: "",
         selected: null
-      }
+      },
+      passwordUser: ""
     };
   },
   methods: {
@@ -163,6 +192,22 @@ export default {
             text: this.tableUsers.selected.username
           });
           this.users = this.$store.getters.users;
+        });
+    },
+    setPassword() {
+      this.$store
+        .dispatch("SetPassword", {
+          id: this.tableUsers.selected._id,
+          password: this.passwordUser
+        })
+        .then(() => {
+          this.$vs.notification({
+            color: "info",
+            position: "top-right",
+            title: "Пароль сменён",
+          });
+          this.passwordUser = "";
+          this.isSetPasswordModalActive = false;
         });
     }
   },

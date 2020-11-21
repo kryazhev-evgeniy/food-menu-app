@@ -24,7 +24,9 @@ require("buefy/dist/buefy.css");
 
 require("./assets/main.css");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 _fontawesome.library.add(_freeSolidSvgIcons.fas);
 
